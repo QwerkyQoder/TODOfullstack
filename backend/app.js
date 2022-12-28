@@ -2,12 +2,11 @@ require("dotenv").config();
 
 const express = require("express")
 const app = express()
+const UserRoutes = require("./routes/userRoutes")
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use("/", (req, res) => {
-    res.send("This is TODO App back end")
-})
+app.use("/", UserRoutes)
 
 module.exports = app;
