@@ -1,7 +1,7 @@
-import Todo from '../model/Todo'
+const Todo = require("../model/Todo");
 
-export async function delTodoController (req, res) {
-    const {todoId} = req.params
-    const delTodo = await Todo.findByIdAndDelete(todoId)
+exports.delTodoController = async (req, res) => {
+    const delTodo = await Todo.findByIdAndDelete(req.params.id)
+    console.log(delTodo)
     res.status(201).json(delTodo)
 }

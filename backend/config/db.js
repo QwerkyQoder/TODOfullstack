@@ -1,12 +1,14 @@
 const mongoose = require("mongoose")
 
 const connectDB = () => {
-    mongoose.connect(process.env.MONGODB_URL)
+    mongoose.connect(process.env.MONGO_URI)
     .then((conn) => {
-        console.log(`connected to host ${conn.connection.host}`)
+        console.log(`Successfully connected to host ${conn.connection.host}`)
     })
     .catch((err) => {
         console.log(err.message);
         process.exit(1)
     })
 }
+
+module.exports = connectDB

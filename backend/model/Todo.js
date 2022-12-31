@@ -1,14 +1,11 @@
-import mongoose from 'mongoose'
-// const mongoose = require('mongoose')
-
-const Schema = mongoose.Schema
+// import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const TodoSchema = new mongoose.Schema({
-    title: {String,
-    required: true},
-
-    Tasks: [],
+    title: {
+        type: String,
+    },
+    tasks: [],
 })
 
-const TodoModel = mongoose.model( "Todo", TodoSchema)
-export default TodoModel;
+module.exports = mongoose.model( "Todo", TodoSchema);

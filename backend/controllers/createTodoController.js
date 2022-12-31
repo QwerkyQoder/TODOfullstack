@@ -1,10 +1,10 @@
-import TodoModel from "../model/Todo";
+const Todo = require("../model/Todo");
 
-export async function createTodoController (req,res) {
-    const newTodo = new Todo ({
-        title: req.body
-    })
-    const createdNewTodo = await newTodo.save ()
-    res.json(createdNewTodo)
+exports.createTodoController = async (req,res) => {
+    const {title, tasks} = req.body
+    console.log(req.body)
+    const newTodo = await Todo.create ({title, tasks})
+    console.log(newTodo)
+    res.json(newTodo)
 }
 
