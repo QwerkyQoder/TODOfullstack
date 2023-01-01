@@ -26,20 +26,32 @@ const TodoList = () => {
         <thead>
           <tr>
             <th scope="col">Todo Title</th>
-            <th scope="col">Tasks</th>
-            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Bootstrap 4 CDN and Starter Template</td>
-            <td>2.846</td>
+          {todoData && todoData.map((todo) => (
+            <tr>
+            <td>{todo.title}</td>
+
             <td>
-              <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+             { todo.tasks && todo.tasks.map(element => (
+              <div>
+                <p>{element}</p>
+                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>  
+              </div>
+             ))
+           }
+           </td>
+
+
+            <td>
+              {/* <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> */}
               <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
             <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
+          ))}
         </tbody>
       </table>
     </div>
