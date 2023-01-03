@@ -20,7 +20,7 @@ exports.delTaskController = async(req, res) => {
     const todo = await Todo.findById(req.params.id).select("tasks");
     // console.log(todo)
 
-    const istask = (element) => element === req.body.text;
+    const istask = (element) => element == req.body.task;
 
     const index = todo.tasks.findIndex(istask);
     console.log(index)
