@@ -16,24 +16,36 @@ const TodoList = () => {
   // Avoid aync await inside USeEffect
   useEffect(() => {
     getdata();
-  }, [Object.values(todoData)]);
+  }, []);
 
   const handleEditTodo = async (todo) => {
     const newtodo=prompt("Enter new Todo")
     if(newtodo) {
-      const resp = await axios.put(`/editTodo/${todo.id}`, {
-        todo:newtodo
+      const resp = await axios.put(`/editTodo/${todo._id}`, {
+        title:newtodo
       })
+      console.log(resp)
     }
   }
 
-  const handleEditTask = async (task) => {
+  const handleAddTask = async (todo) => {
     const newtask=prompt("Enter new Task")
     if(newtask) {
-      const resp = await axios.put(`/editTask/${task.id}`, {
-        task:newtask
+      const resp = await axios.put(`/createTask/${todo._id}`, {
+        text:newtask
       })
+      console.log(resp)
     }
+  }
+
+
+  const handleDelTask = async (todo, task) => {
+      console.log(todo)
+      console.log(task)
+      const resp = await axios.put(`/delTask/${todo._id}`, {
+        task:task
+      })
+      console.log(resp)
   }
 
 
@@ -62,9 +74,10 @@ const TodoList = () => {
             <td>
              { todo.tasks && todo.tasks.map(element => (
               <div key={element._id}>
-                <p>{element}</p>
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>  
+                <p>{element}
+                <button type="button" class="btn btn-danger"
+                onClick={() => handleDelTask(todo, element)}><i class="far fa-trash-alt"></i></button>  
+                </p>
               </div>
              ))
            }
@@ -72,7 +85,8 @@ const TodoList = () => {
 
 
             <td>
-              {/* <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> */}
+              <button type="button" class="btn btn-primary"
+              onClick={() => handleAddTask(todo)}><i class="fas fa-plus"></i></button>
               <button type="button" class="btn btn-success"
               onClick={() => handleEditTodo(todo)}><i class="fas fa-edit"></i></button>
             <button type="button" class="btn btn-danger"
