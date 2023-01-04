@@ -1,5 +1,22 @@
 const Todo = require("../model/Todo");
 
+
+exports.getTodosController = async(req, res) => {
+    // const {todoId} = req.params
+    try {
+        const allTodos = await Todo.find()
+        console.log("In GetTodo")
+        console.log(allTodos)
+        res.status(200).json(allTodos)
+        // res.json(allTodos)
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: e.message
+        })
+    }
+} 
+
 exports.createTodoController = async (req,res) => {
     // TODO: Check for Duplicate TODO
     // TODO: Error Handling
@@ -25,3 +42,9 @@ exports.editTodosController = async(req, res) => {
     // res.json(todo)
 } 
 
+exports.delTodoController = async (req, res) => {
+    console.log("TODO DELETE CONTROLLER")
+    const delTodo = await Todo.findByIdAndDelete(req.params.id)
+    console.log(delTodo)
+    res.status(201).json(delTodo)
+}

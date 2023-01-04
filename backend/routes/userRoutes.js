@@ -1,10 +1,8 @@
 const express = require("express")
 const router = express.Router();
 const {home} = require("../controllers/userController")
-const {createTodoController, editTodosController} = require("../controllers/createTodoController")
-const {createTaskController, delTaskController } = require("../controllers/createTaskController")
-const {getTodosController} = require("../controllers/getTodosController")
-const {delTodoController} = require("../controllers/deleteTodosController")
+const {createTodoController, editTodosController, getTodosController, delTodoController} = require("../controllers/todoController")
+const {createTaskController, delTaskController } = require("../controllers/taskController")
 
 
 router.get("/", home)
