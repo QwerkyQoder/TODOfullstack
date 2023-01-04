@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios"
+// import TodoList from "./TodoList"
 
 const Form = () => {
 
@@ -13,6 +14,7 @@ const Form = () => {
         };
         const res = await axios.post("/createTodo", data)
         console.log(res)
+        // TodoList()
     };
 
     const handleSubmit = (event) =>{

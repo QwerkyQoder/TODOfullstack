@@ -5,13 +5,13 @@ const TodoList = () => {
   const [todoData, setTodoData] = useState(null);
 
   const getdata = async () => {
-    const resp = await axios.get("/getTodos")
-    console.log("resp",resp)
+      const resp = await axios.get("/getTodos")
+      console.log("resp",resp)
 
-    if(resp.data.length > 0) {
-      setTodoData(resp.data)
-    }
-  }
+      if(resp.data.length > 0) {
+        setTodoData(resp.data)
+      }
+    }  
 
   // Avoid aync await inside USeEffect
   useEffect(() => {
@@ -26,6 +26,7 @@ const TodoList = () => {
       })
       console.log(resp)
     }
+    getdata();
   }
 
   const handleAddTask = async (todo) => {
@@ -36,6 +37,7 @@ const TodoList = () => {
       })
       console.log(resp)
     }
+    getdata();
   }
 
 
@@ -46,6 +48,7 @@ const TodoList = () => {
         task:task
       })
       console.log(resp)
+      getdata();
   }
 
 
@@ -54,12 +57,14 @@ const TodoList = () => {
     console.log(todoId)
     const resp = await axios.delete(`/deleteTodo/${todoId}`)
     console.log(resp)
+    getdata();
 }
 
   return (
 <div class="container">
   <div class="row">
     <div class="col-12">
+      <p></p>
       <table class="table table-bordered">
         <thead>
           <tr>
