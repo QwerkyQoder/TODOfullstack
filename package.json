@@ -2,7 +2,15 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://todo-backend-xjbo.onrender.com",
+  "proxy": {
+   "/api/*":{
+   "target":"https://todo-backend-xjbo.onrender.com",
+   "secure":false,
+   "headers": {
+     "host": "todo-backend-xjbo.onrender.com"
+    },
+    "cookieDomainRewrite": ""
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
