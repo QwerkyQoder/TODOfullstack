@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { Context } from './Context';
 
 const TodoList = () => {
   const [todoData, setTodoData] = useState(null);
+  const token = useContext(Context)
 
   const getdata = async () => {
       const resp = await axios.get("/getTodos")
