@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { Context } from './Context';
+import { AuthContext } from './Context';
 
 const TodoList = () => {
   const [todoData, setTodoData] = useState(null);
-  const token = useContext(Context)
-
+  const t = useContext(AuthContext)
   const getdata = async () => {
       const resp = await axios.get("/getTodos")
       console.log("resp",resp)
@@ -17,8 +16,15 @@ const TodoList = () => {
 
   // Avoid aync await inside USeEffect
   useEffect(() => {
-    getdata();
-  }, []);
+    if(!t.token){
+      console.log("Token not found")
+      t.setToken(localStorage.getItem("token"))
+      console.log("token",t)
+    }
+    else {
+    console.log("token",t)}
+    // getdata();
+  }, [t]);
 
   const handleEditTodo = async (todo) => {
     const newtodo=prompt("Enter new Todo")
@@ -83,26 +89,27 @@ const [todo, setTodo] = useState("")
     }
 
   return (
-<div class="container">
+<div className="container">
+  <AuthContext.Consumer>{value=> {<h1>Token {value}</h1>}}</AuthContext.Consumer>
 <div>
         <form onSubmit={handleSubmit}>
-  <div class="m-5">
-    <label for="exampleInputTodo1" class="form-label">Todo Title</label>
-    <input type="text" class="form-control" id="exampleInputTodo1"
+  <div className="m-5">
+    <label htmlFor="exampleInputTodo1" className="form-label">Todo Title</label>
+    <input type="text" className="form-control" id="exampleInputTodo1"
     value={todo} onChange={(event) => setTodo(event.target.value)} />
   </div>
-  <div class="m-5">
-    <label for="exampleInputTask1" class="form-label">Task</label>
-    <input type="text" class="form-control" id="exampleInputTaskword1"
+  <div className="m-5">
+    <label htmlFor="exampleInputTask1" className="form-label">Task</label>
+    <input type="text" className="form-control" id="exampleInputTaskword1"
     value={task} onChange={(event) => setTask(event.target.value)} />
   </div>
-  <button type="submit" class="btn btn-primary m-5">Submit</button>
+  <button type="submit" className="btn btn-primary m-5">Submit</button>
 </form>
   </div>
-  <div class="row">
-    <div class="col-12">
+  <div className="row">
+    <div className="col-12">
       <p></p>
-      <table class="table table-bordered">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th scope="col">Todo Title</th>
@@ -117,8 +124,8 @@ const [todo, setTodo] = useState("")
              { todo.tasks && todo.tasks.map(element => (
               <div key={element._id}>
                 <p>{element}
-                <button type="button" class="btn btn-danger"
-                onClick={() => handleDelTask(todo, element)}><i class="far fa-trash-alt"></i></button>  
+                <button type="button" className="btn btn-danger"
+                onClick={() => handleDelTask(todo, element)}><i classNamex="far fa-trash-alt"></i></button>  
                 </p>
               </div>
              ))
@@ -127,12 +134,12 @@ const [todo, setTodo] = useState("")
 
 
             <td>
-              <button type="button" class="btn btn-primary"
-              onClick={() => handleAddTask(todo)}><i class="fas fa-plus"></i></button>
-              <button type="button" class="btn btn-success"
-              onClick={() => handleEditTodo(todo)}><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"
-            onClick={() => handleDelTodo(todo._id)}><i class="far fa-trash-alt"></i></button>
+              <button type="button" className="btn btn-primary"
+              onClick={() => handleAddTask(todo)}><i className="fas fa-plus"></i></button>
+              <button type="button" className="btn btn-success"
+              onClick={() => handleEditTodo(todo)}><i className="fas fa-edit"></i></button>
+            <button type="button" className="btn btn-danger"
+            onClick={() => handleDelTodo(todo._id)}><i className="far fa-trash-alt"></i></button>
             </td>
           </tr>
           ))}

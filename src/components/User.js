@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Context } from './Context';
 import "../../node_modules/bootstrap/dist/css/bootstrap.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router';
+
+import {useAuth} from './Context'
 
 let axiosConfig = {
     headers: {
@@ -15,12 +16,13 @@ const User = () => {
     const navigate = useNavigate();
 
     const [login, setLogin] = useState(true)
-    const [token, setToken] = useState(null)
     const [user, setUser] = useState({
         name: "",
         email: "",
         password: ""
-    })
+    })  
+
+    const {token, setToken} = useAuth('')
 
     const handleLogin = () =>{
         setLogin(!login)
@@ -28,7 +30,6 @@ const User = () => {
 
     const LoginHandler = async (e) => {
         e.preventDefault();
-        alert("Submitted")
         console.log(user)
         const resp = await axios.post("http://127.0.0.1:4000/login", JSON.stringify({
             username:user.name,
@@ -39,8 +40,8 @@ const User = () => {
         if(resp.status === 200) {
             setToken(resp.data.token)
             console.log(token)
-        navigate("/todos")
-
+            localStorage.setItem("token", resp.data.token)
+            navigate('/todos')
         }
         else {
         alert("Register failed")
@@ -58,8 +59,7 @@ const User = () => {
           }) , axiosConfig);
         console.log(resp);
         if(resp.status === 200) {
-            setToken(resp.data.token)
-            console.log(token)
+            console.log(resp.data.token)
 
         }
         else {
@@ -68,10 +68,9 @@ const User = () => {
     }
 
     return (
-        <Context.Provider value={token}>
 
             <div className="container">
-            <h1 className='text-center fw-light pt-5'>Welcome to Todo App</h1>
+            <h1 className='text-center fw-light pt-5'>Welcome to Todo App  </h1>
                 {login && 
                 <div className="row">
                 <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -160,7 +159,6 @@ const User = () => {
                 </div>
             }
             </div>
-            </Context.Provider>
     )
 }
 
