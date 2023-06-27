@@ -162,8 +162,8 @@ const [todo, setTodo] = useState("")
              { todo.tasks && todo.tasks.map(element => (
               <div key={element._id}>
                 <p>{element}
-                <button type="button" className="btn btn-danger"
-                onClick={() => handleDelTask(todo, element)}><i className="far fa-trash-alt"></i></button>  
+                <button type="button " className="btn btn-danger btn-sm m-1"
+                onClick={() => handleDelTask(todo, element)}>Del</button>  
                 </p>
               </div>
              ))
@@ -172,12 +172,13 @@ const [todo, setTodo] = useState("")
 
 
             <td>
-              <button type="button" className="btn btn-primary"
-              onClick={() => handleAddTask(todo)}><i className="fas fa-plus"></i></button>
-              <button type="button" className="btn btn-success"
-              onClick={() => handleEditTodo(todo)}><i className="fas fa-edit"></i></button>
-            <button type="button" className="btn btn-danger"
-            onClick={() => handleDelTodo(todo._id)}><i className="far fa-trash-alt"></i></button>
+              <button type="button" className="btn btn-primary m-1"
+              onClick={() => handleAddTask(todo)}>
+                Add</button>
+              <button type="button" className="btn btn-success m-1"
+              onClick={() => handleEditTodo(todo)}>Edit</button>
+            <button type="button" className="btn btn-danger m-1"
+            onClick={() => handleDelTodo(todo._id)}>Del</button>
             </td>
           </tr>
           ))}
