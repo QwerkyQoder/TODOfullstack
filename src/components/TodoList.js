@@ -1,18 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { AuthContext } from './Context';
+import { AuthContext, useAuth } from './Context';
+import { useNavigate } from 'react-router';
 
 const TodoList = () => {
+  const navigate = useNavigate();
   const [todoData, setTodoData] = useState(null);
-  const t = useContext(AuthContext)
-  const bearer_token = `Bearer ${t.token}`;
+  // const t = useContext(AuthContext)
+  const {token, setToken} = useAuth()
+
+  const bearer_token = `Bearer ${ token}`;
     const config = {
       headers: {
         Authorization: bearer_token
       }
     }
-  const getdata = async () => {
+  const [email, setEmail] = useState("")
     
+  const getdata = async () => {
+
       const resp = await axios.get("http://127.0.0.1:4000/getTodos", config)
       console.log("resp",resp)
 
@@ -22,19 +28,20 @@ const TodoList = () => {
       else {
         alert("No todos. Add new ones")
       }
+      setEmail(localStorage.getItem("user"))
     }  
 
   // Avoid aync await inside USeEffect
   useEffect(() => {
-    if(!t.token){
+    if(!token){
       console.log("Token not found")
-      t.setToken(localStorage.getItem("token"))
-      console.log("token",t)
+      setToken(localStorage.getItem("token"))
+      console.log("token",token)
     }
     else {
-    console.log("token",t)}
+    console.log("token",token)}
     getdata();
-  }, [t]);
+  }, [token]);
 
   const handleEditTodo = async (todo) => {
     const newtodo=prompt("Enter new Todo")
@@ -99,10 +106,30 @@ const [todo, setTodo] = useState("")
         setTask("");
     }
 
+    const handleLogout = async () => {
+      const resp = await axios.post("http://127.0.0.1:4000/logout","" ,config)
+      console.log(resp)
+      if(resp.status === 200) {
+        localStorage.setItem("token", "")
+        localStorage.setItem("user", "")
+        setToken(null)
+        console.log("token", token)
+      }
+      else {
+        alert("Logout unsuccessful")
+      }
+      navigate("/")
+    }
+
   return (
 <div className="container">
-  <AuthContext.Consumer>{value=> {<h1>Token {value}</h1>}}</AuthContext.Consumer>
-<div>
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <h3 class="navbar-brand">{email}</h3>
+    <button class="btn btn-primary m-5 my-2 my-sm-0 ms-auto "
+    onClick={handleLogout}>Logout</button>
+  </nav>
+
+  <div>
         <form onSubmit={handleSubmit}>
   <div className="m-5">
     <label htmlFor="exampleInputTodo1" className="form-label">Todo Title</label>

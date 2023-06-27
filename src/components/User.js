@@ -41,6 +41,7 @@ const User = () => {
             setToken(resp.data.token)
             console.log(token)
             localStorage.setItem("token", resp.data.token)
+            localStorage.setItem("user", user.email)
             navigate('/todos')
         }
         else {
