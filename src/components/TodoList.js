@@ -29,19 +29,16 @@ const TodoList = () => {
         setTodoData([])
         alert("No todos. Add new ones")
       }
-      setEmail(localStorage.getItem("user"))
+
     }  
 
   // Avoid aync await inside USeEffect
   useEffect(() => {
-    setToken(localStorage.getItem("token"))
-    if(!token){
-      console.log("Token not found")
-      setToken(localStorage.getItem("token"))
-      console.log("token",token)
-    }
-    else {
-    console.log("token",token)}
+    const local_token = localStorage.getItem("token")
+    setToken(local_token)
+    console.log("token",token)
+    const local_email = localStorage.getItem("user")
+    setEmail(local_email)
     getdata();
   }, [token]);
 
