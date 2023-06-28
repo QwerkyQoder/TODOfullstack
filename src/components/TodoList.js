@@ -26,6 +26,7 @@ const TodoList = () => {
         setTodoData(resp.data)
       }
       else {
+        setTodoData([])
         alert("No todos. Add new ones")
       }
       setEmail(localStorage.getItem("user"))
