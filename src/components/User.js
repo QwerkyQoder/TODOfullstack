@@ -31,7 +31,7 @@ const User = () => {
     const LoginHandler = async (e) => {
         e.preventDefault();
         console.log(user)
-        const resp = await axios.post("http://127.0.0.1:4000/login", JSON.stringify({
+        const resp = await axios.post("/login", JSON.stringify({
             username:user.name,
             email:user.email,
             password:user.password
@@ -45,23 +45,25 @@ const User = () => {
             navigate('/todos')
         }
         else {
-        alert("Register failed")
+        alert("Login failed")
         }
     }
 
     const RegisterHandler = async (e) => {
-        alert("Submitted")
         e.preventDefault();
         console.log(user)
-        const resp = await axios.post("http://127.0.0.1:4000/register", JSON.stringify({
+        const resp = await axios.post("/register", JSON.stringify({
             username:user.name,
             email:user.email,
             password:user.password
           }) , axiosConfig);
         console.log(resp);
         if(resp.status === 200) {
-            console.log(resp.data.token)
-
+            setToken(resp.data.token)
+            console.log(token)
+            localStorage.setItem("token", resp.data.token)
+            localStorage.setItem("user", user.email)
+            navigate('/todos')
         }
         else {
         alert("Register failed")

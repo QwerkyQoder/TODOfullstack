@@ -19,7 +19,7 @@ const TodoList = () => {
     
   const getdata = async () => {
 
-      const resp = await axios.get("http://127.0.0.1:4000/getTodos", config)
+      const resp = await axios.get("/getTodos", config)
       console.log("resp",resp)
 
       if(resp.data.length > 0) {
@@ -49,7 +49,7 @@ const TodoList = () => {
       const data = {
         title:newtodo
       }
-      const resp = await axios.put(`http://127.0.0.1:4000/editTodo/${todo._id}`, data, config)
+      const resp = await axios.put(`/editTodo/${todo._id}`, data, config)
       console.log(resp)
     }
     getdata();
@@ -58,7 +58,7 @@ const TodoList = () => {
   const handleAddTask = async (todo) => {
     const newtask=prompt("Enter new Task")
     if(newtask) {
-      const resp = await axios.put(`http://127.0.0.1:4000/createTask/${todo._id}`, {
+      const resp = await axios.put(`/createTask/${todo._id}`, {
         text:newtask
       }, config)
       console.log(resp)
@@ -70,7 +70,7 @@ const TodoList = () => {
   const handleDelTask = async (todo, task) => {
       console.log(todo)
       console.log(task)
-      const resp = await axios.put(`http://127.0.0.1:4000/delTask/${todo._id}`, {
+      const resp = await axios.put(`/delTask/${todo._id}`, {
         task:task
       }, config)
       console.log(resp)
@@ -81,7 +81,7 @@ const TodoList = () => {
   const handleDelTodo = async (todoId) => {
     console.log("Handle Delete TODO")
     console.log(todoId)
-    const resp = await axios.delete(`http://127.0.0.1:4000/deleteTodo/${todoId}`, config)
+    const resp = await axios.delete(`/deleteTodo/${todoId}`, config)
     console.log(resp)
     getdata();
 }
@@ -94,7 +94,7 @@ const [todo, setTodo] = useState("")
             title: todo,
             tasks: task
         };
-        const res = await axios.post("http://127.0.0.1:4000/createTodo", data, config)
+        const res = await axios.post("/createTodo", data, config)
         console.log(res)
         getdata()
     };
@@ -107,7 +107,7 @@ const [todo, setTodo] = useState("")
     }
 
     const handleLogout = async () => {
-      const resp = await axios.post("http://127.0.0.1:4000/logout","" ,config)
+      const resp = await axios.post("/logout","" ,config)
       console.log(resp)
       if(resp.status === 200) {
         localStorage.setItem("token", "")
