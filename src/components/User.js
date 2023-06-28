@@ -39,7 +39,7 @@ const User = () => {
         console.log(resp);
         if(resp.status === 200) {
             setToken(resp.data.token)
-            console.log(token)
+            console.log(resp.data.token)
             localStorage.setItem("token", resp.data.token)
             localStorage.setItem("user", user.email)
             navigate('/todos')
