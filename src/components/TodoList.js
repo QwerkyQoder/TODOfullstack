@@ -34,6 +34,7 @@ const TodoList = () => {
 
   // Avoid aync await inside USeEffect
   useEffect(() => {
+    setToken(localStorage.getItem("token"))
     if(!token){
       console.log("Token not found")
       setToken(localStorage.getItem("token"))
