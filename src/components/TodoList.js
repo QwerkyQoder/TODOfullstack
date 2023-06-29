@@ -122,9 +122,9 @@ const [todo, setTodo] = useState("")
 
   return (
 <div className="container">
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <h3 class="navbar-brand">{email}</h3>
-    <button class="btn btn-primary m-5 my-2 my-sm-0 ms-auto "
+  <nav className="navbar navbar-expand-lg navbar-light ">
+    <h3 className="navbar-brand">{email}</h3>
+    <button className="btn btn-primary m-5 my-2 my-sm-0 ms-auto "
     onClick={handleLogout}>Logout</button>
   </nav>
 
