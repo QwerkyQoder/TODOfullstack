@@ -20,7 +20,7 @@ const TodoList = () => {
   const getdata = async () => {
 
       const resp = await axios.get("/getTodos", config)
-      console.log("resp",resp)
+      // console.log("resp",resp)
 
       if(resp.data.length > 0) {
         setTodoData(resp.data)
@@ -36,7 +36,7 @@ const TodoList = () => {
   useEffect(() => {
     const local_token = localStorage.getItem("token")
     setToken(local_token)
-    console.log("token",token)
+    // console.log("token",token)
     const local_email = localStorage.getItem("user")
     setEmail(local_email)
     getdata();
@@ -49,7 +49,7 @@ const TodoList = () => {
         title:newtodo
       }
       const resp = await axios.put(`/editTodo/${todo._id}`, data, config)
-      console.log(resp)
+      // console.log(resp)
     }
     getdata();
   }
@@ -60,28 +60,28 @@ const TodoList = () => {
       const resp = await axios.put(`/createTask/${todo._id}`, {
         text:newtask
       }, config)
-      console.log(resp)
+      // console.log(resp)
     }
     getdata();
   }
 
 
   const handleDelTask = async (todo, task) => {
-      console.log(todo)
-      console.log(task)
+      // console.log(todo)
+      // console.log(task)
       const resp = await axios.put(`/delTask/${todo._id}`, {
         task:task
       }, config)
-      console.log(resp)
+      // console.log(resp)
       getdata();
   }
 
 
   const handleDelTodo = async (todoId) => {
-    console.log("Handle Delete TODO")
-    console.log(todoId)
+    // console.log("Handle Delete TODO")
+    // console.log(todoId)
     const resp = await axios.delete(`/deleteTodo/${todoId}`, config)
-    console.log(resp)
+    // console.log(resp)
     getdata();
 }
 
@@ -94,7 +94,7 @@ const [todo, setTodo] = useState("")
             tasks: task
         };
         const res = await axios.post("/createTodo", data, config)
-        console.log(res)
+        // console.log(res)
         getdata()
     };
 
@@ -107,12 +107,12 @@ const [todo, setTodo] = useState("")
 
     const handleLogout = async () => {
       const resp = await axios.post("/logout","" ,config)
-      console.log(resp)
+      // console.log(resp)
       if(resp.status === 200) {
         localStorage.setItem("token", "")
         localStorage.setItem("user", "")
         setToken(null)
-        console.log("token", token)
+        // console.log("token", token)
       }
       else {
         alert("Logout unsuccessful")

@@ -25,21 +25,24 @@ const User = () => {
     const {token, setToken} = useAuth('')
 
     const handleLogin = () =>{
-        setLogin(!login)
+        if(login) {
+            alert("To register, email the developer at colorcodedcrayons@gmail.com")
+        }
+        // setLogin(!login)
     }
 
     const LoginHandler = async (e) => {
         e.preventDefault();
-        console.log(user)
+        // console.log(user)
         const resp = await axios.post("/login", JSON.stringify({
             username:user.name,
             email:user.email,
             password:user.password
           }) , axiosConfig);
-        console.log(resp);
+        // console.log(resp);
         if(resp.status === 200) {
             setToken(resp.data.token)
-            console.log(resp.data.token)
+            // console.log(resp.data.token)
             localStorage.setItem("token", resp.data.token)
             localStorage.setItem("user", user.email)
             navigate('/todos')
@@ -51,16 +54,16 @@ const User = () => {
 
     const RegisterHandler = async (e) => {
         e.preventDefault();
-        console.log(user)
+        // console.log(user)
         const resp = await axios.post("/register", JSON.stringify({
             username:user.name,
             email:user.email,
             password:user.password
           }) , axiosConfig);
-        console.log(resp);
+        // console.log(resp);
         if(resp.status === 200) {
             setToken(resp.data.token)
-            console.log(token)
+            // console.log(token)
             localStorage.setItem("token", resp.data.token)
             localStorage.setItem("user", user.email)
             navigate('/todos')
@@ -120,7 +123,7 @@ const User = () => {
                 <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                     <div className="card border-0 shadow rounded-3 my-5">
                     <div className="card-body p-4 p-sm-5">
-                        <h5 className="card-title text-center mb-5 fw-light fs-5">Login</h5>
+                        <h5 className="card-title text-center mb-5 fw-light fs-5">Register</h5>
                         <form onSubmit={RegisterHandler}>
 
                             <div className="form-floating mb-3">
