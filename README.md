@@ -1,3 +1,6 @@
+## Deployed link: [https://todouserauthfrontend.onrender.com](https://todouserauthfrontend.onrender.com)
+Deployed on auth-profile git branch.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
