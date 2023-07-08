@@ -2,6 +2,7 @@
 
 ## Find the backend repo here: https://github.com/QuirkyQode/TodoBackEnd
 
+Using Redux
 
 # Getting Started with Create React App
 
