@@ -45,7 +45,7 @@ const User = () => {
             localStorage.setItem("user", user.email)
             navigate('/todos')
         }}).catch((error) => {
-            console.log(error)
+            // console.log(error)
         alert("Login failed")
         })
     }
