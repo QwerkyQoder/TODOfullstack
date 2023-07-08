@@ -38,21 +38,20 @@ const User = () => {
             username:user.name,
             email:user.email,
             password:user.password
-          }) , axiosConfig);
-        // console.log(resp);
+          }) , axiosConfig).then ((resp) => {
         if(resp.status === 200) {
             setToken(resp.data.token)
-            // console.log(resp.data.token)
             localStorage.setItem("token", resp.data.token)
             localStorage.setItem("user", user.email)
             navigate('/todos')
-        }
-        else {
+        }}).catch((error) => {
+            console.log(error)
         alert("Login failed")
-        }
+        })
     }
 
     const RegisterHandler = async (e) => {
+        // TODO: Add try catch here
         e.preventDefault();
         // console.log(user)
         const resp = await axios.post("/register", JSON.stringify({
