@@ -1,5 +1,4 @@
 ## Deployed link: [https://todouserauthfrontend.onrender.com](https://todouserauthfrontend.onrender.com)
-Deployed on auth-profile git branch.
 
 ## Find the backend repo here: https://github.com/QuirkyQode/TodoBackEnd
 
